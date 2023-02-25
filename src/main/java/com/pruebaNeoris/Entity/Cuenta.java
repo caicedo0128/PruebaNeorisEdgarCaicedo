@@ -1,16 +1,24 @@
 package com.pruebaNeoris.Entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cuenta")
+@JsonIgnoreProperties(value = { "movimientoList" }, allowSetters = true)
 public class Cuenta implements Serializable{
 	
 	/**
@@ -33,7 +41,14 @@ public class Cuenta implements Serializable{
 	private Long saldoInicial;
 	
 	@Column(name = "estado")
-	private String estado;
+	private boolean estado;
+	
+	@JoinColumn(name = "cliente", referencedColumnName = "clienteId")
+	@ManyToOne(optional = false)
+	private Cliente cliente;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta")
+	private List<Movimiento> movimientoList;
 
 	public Long getId() {
 		return id;
@@ -67,13 +82,30 @@ public class Cuenta implements Serializable{
 		this.saldoInicial = saldoInicial;
 	}
 
-	public String getEstado() {
+	public boolean isEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<Movimiento> getMovimientoList() {
+		return movimientoList;
+	}
+
+	public void setMovimientoList(List<Movimiento> movimientoList) {
+		this.movimientoList = movimientoList;
+	}
+	
 	
 	
 

@@ -20,7 +20,7 @@ public class MovimientoController {
 	MovimientoService movimientoService;
 	
 	@PostMapping()
-	public ResponseEntity<Movimiento> crearMovimiento(@RequestBody Movimiento movimiento){
+	public ResponseEntity<Object> crearMovimiento(@RequestBody Movimiento movimiento){
 		return movimientoService.crearMovimiento(movimiento);
 	}
 	

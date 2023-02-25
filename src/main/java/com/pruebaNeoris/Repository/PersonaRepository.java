@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pruebaNeoris.Entity.Cuenta;
+import com.pruebaNeoris.Entity.Persona;
 
 @Repository
-public interface CuentaRepository extends JpaRepository<Cuenta, Long>{
+public interface PersonaRepository extends JpaRepository<Persona, Long>{
 	
-	Optional<Cuenta> findByNumeroCuenta (Integer numeroCuenta);
+	Optional<Persona> findByIdentificacion(String identificacion);
 
 }

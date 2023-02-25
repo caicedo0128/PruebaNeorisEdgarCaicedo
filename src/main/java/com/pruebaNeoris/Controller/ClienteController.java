@@ -20,7 +20,7 @@ public class ClienteController {
 	ClienteService clienteService;
 	
 	@PostMapping()
-	public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente){
+	public ResponseEntity<Object> crearCliente(@RequestBody Cliente cliente){
 		return clienteService.crearCliente(cliente);
 	}
 	

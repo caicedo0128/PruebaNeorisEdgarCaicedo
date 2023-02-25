@@ -16,17 +16,24 @@ public class CuentaService {
 	CuentaRepository cuentaRepository;
 	
 	private final static String MENSAJE_ELIMINAR_OK = "Cuenta Eliminada con Exito";
+	private final static String CUENTA_EXISTENTE = "El numero de cuenta ya ha sido asignado";
 	
-	public ResponseEntity<Cuenta> crearCuenta(Cuenta cuenta){
-		Cuenta nuevaCuenta = cuentaRepository.save(cuenta);
-		return ResponseEntity.ok().body(nuevaCuenta);
+	public ResponseEntity<Object> crearCuenta(Cuenta cuenta){
+		Optional<Cuenta> cuentaMovimiento = cuentaRepository.findByNumeroCuenta(cuenta.getNumeroCuenta());
+		if(!cuentaMovimiento.isPresent()) {
+			Cuenta nuevaCuenta = cuentaRepository.save(cuenta);
+			return ResponseEntity.ok().body(nuevaCuenta);
+		}else {
+			return ResponseEntity.ok().body(CUENTA_EXISTENTE);
+		}
+		
 	}
 	
 	public ResponseEntity<Object> editarCuenta(Cuenta cuenta){
 		Optional<Cuenta> cuentaEditar = cuentaRepository.findById(cuenta.getId());
 		Object cuentaEditarObj = new Object();
 		if(cuentaEditar.isPresent()) {
-			cuentaEditarObj = cuentaEditar.get();
+			cuentaRepository.save(cuentaEditar.get());
 			return ResponseEntity.ok().body(cuentaEditarObj);
 		}else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(cuentaEditarObj);

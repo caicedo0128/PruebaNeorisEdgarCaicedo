@@ -20,7 +20,7 @@ public class CuentaController {
 	CuentaService cuentaService;
 	
 	@PostMapping()
-	public ResponseEntity<Cuenta> crearCuenta(@RequestBody Cuenta cuenta){
+	public ResponseEntity<Object> crearCuenta(@RequestBody Cuenta cuenta){
 		return cuentaService.crearCuenta(cuenta);
 	}
 	
